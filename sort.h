@@ -29,4 +29,6 @@ int partition(int *array, int lo, int hi);
 void quick_sort(int *array, size_t size);
 void swap(int *a, int *b, int *array, int size);
 void shell_sort(int *array, size_t size);
+void swap_list(listint_t *curr, listint_t *prev, listint_t **head);
+void cocktail_sort_list(listint_t **list);
 #endif /*_SORT_H_*/

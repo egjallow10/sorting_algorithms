@@ -49,3 +49,19 @@ void partition(int *array, int low, int high, size_t size)
 		partition(array, lesser + 1, high, size);
 	}
 }
+
+/**
+ * swap- swaps two indices
+ * @array: Holds the array
+ * @idx1: The first index
+ * @idx2: The second index
+ */
+
+void swap(int *array, int idx1, int idx2)
+{
+	int temp;
+
+	temp = array[idx1];
+	array[idx1] = array[idx2];
+	array[idx2] = temp;
+}

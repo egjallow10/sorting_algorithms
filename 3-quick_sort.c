@@ -7,61 +7,52 @@
  * @size: the size of the array
  */
 
-void partition(int *array, int low, int high, size_t size)
+int partition(int *array, int lo, int hi)
 {
-	int cur;
-	int pivot = high;
-	int lesser = low;
-	int greater = low;
+	int i, j, pivot = array[hi];
 
-	if (size < 2)
-		return;
+	for (j = i = lo; j < hi; j++)
+		if (array[j] < pivot)
+			swap(&array[i++], &array[j], array, hi + 1);
+	swap(&array[i], &array[hi], array, hi + 1);
+	return (i);
+}
 
-	for (cur = low; cur <= high; cur += 1)
+/**
+ * quick_sort - sorts an int array using partition-exchange sorting
+ * @array: int array to be sorted
+ * @size: length of @array
+ */
+void quick_sort(int *array, size_t size)
+{
+	if (size > 1)
 	{
-		if (array[cur] > array[pivot])
-			greater += 1;
-		if (array[cur] < array[pivot])
-		{
-			if (cur != lesser)
-			{
-				swap(array, lesser, cur);
-				print_array(array, size);
-			}
-			lesser += 1;
-		}
-	}
+		int pivot = partition(array, 0, size - 1);
 
-	/* move pivot to where it belongs */
-	if (pivot != lesser && array[pivot] != array[lesser])
-	{
-		swap(array, pivot, lesser);
-		print_array(array, size);
-	}
-	/* Partition left subgroup */
-	if (lesser - 1 > low)
-	{
-		partition(array, low, lesser - 1, size);
-	}
-	/* Partition right subgroup */
-	if (lesser + 1 < high)
-	{
-		partition(array, lesser + 1, high, size);
+		quick_sort(array, pivot);
+		quick_sort(array + pivot + 1, size - pivot - 1);
 	}
 }
+
 
 /**
  * swap- swaps two indices
  * @array: Holds the array
- * @idx1: The first index
- * @idx2: The second index
+ * @a: The first index
+ * @b: The second index
+ * @size: the int size
  */
-
-void swap(int *array, int idx1, int idx2)
+void swap(int *a, int *b, int *array, int size)
 {
-	int temp;
+	static int *ptr, s; /* for printing */
+	int t = *a;
 
-	temp = array[idx1];
-	array[idx1] = array[idx2];
-	array[idx2] = temp;
+	if (*a != *b)
+	{
+		*a = *b;
+		*b = t;
+		if (!ptr)
+			ptr = array, s = size;
+		print_array(ptr, s);
+	}
 }
